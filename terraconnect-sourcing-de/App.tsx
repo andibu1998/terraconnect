@@ -59,6 +59,10 @@ const App: React.FC = () => {
   const [formStep, setFormStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  
+  // Persistent Event ID for CAPI deduplication (generated once per session)
+  const [eventId] = useState(() => 'evt_' + Date.now() + '_' + Math.floor(Math.random() * 1000000));
+
   const [formData, setFormData] = useState({
     hasSolarPark: '',
     commYear: '',
@@ -86,25 +90,112 @@ const App: React.FC = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // Validation Logic
   const validateStep1 = () => {
     return formData.hasSolarPark && formData.commYear && formData.sizeHectares && formData.leasePerHectare;
   };
 
   const validateStep2 = () => {
-    return formData.firstName && formData.lastName && formData.email && formData.phone && formData.consent;
+    return formData.firstName && formData.lastName && formData.email && formData.consent;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const validateStep3 = () => {
+    return formData.phone && formData.phone.length > 5;
+  };
+
+  // --- TRACKING HELPER START ---
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return '';
+  };
+
+  // Helper to fetch IP address asynchronously
+  const getClientIp = async () => {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch (error) {
+      return '';
+    }
+  };
+
+  const getTrackingParams = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      fbp: getCookie('_fbp') || '',
+      fbc: getCookie('_fbc') || '',
+      user_agent: navigator.userAgent,
+      page_url: window.location.href,
+      utm_source: urlParams.get('utm_source') || '',
+      utm_medium: urlParams.get('utm_medium') || '',
+      utm_campaign: urlParams.get('utm_campaign') || '',
+      utm_content: urlParams.get('utm_content') || '',
+      utm_term: urlParams.get('utm_term') || ''
+    };
+  };
+  // --- TRACKING HELPER END ---
+
+  // Handle Step 2 Submit (Partial Lead Capture)
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep2()) return;
+
+    // Fire partial lead webhook with advanced tracking params (fire and forget)
+    try {
+      const ip = await getClientIp();
+      const trackingData = getTrackingParams();
+      
+      const payload = { 
+        ...formData, 
+        ...trackingData,
+        stage: 'partial_lead',
+        event_id: eventId,
+        client_ip: ip,
+        event_time: Math.floor(Date.now() / 1000)
+      };
+
+      fetch('https://services.leadconnectorhq.com/hooks/vZHsvAh2e7NEOzHzMRGL/webhook-trigger/b8216b06-e56d-49fd-9065-25580de07da8', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    } catch (err) {
+      // ignore errors for partial submit
+    }
+
+    setFormStep(3);
+    window.scrollTo({
+      top: document.getElementById('conversion-area')?.offsetTop || 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Handle Final Submit
+  const handleFinalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateStep3()) return;
 
     setIsSubmitting(true);
     
     try {
+      const ip = await getClientIp();
+      const trackingData = getTrackingParams();
+      
+      const payload = { 
+        ...formData, 
+        ...trackingData,
+        event_id: eventId,
+        client_ip: ip,
+        event_time: Math.floor(Date.now() / 1000)
+      };
+
       await fetch('https://services.leadconnectorhq.com/hooks/vZHsvAh2e7NEOzHzMRGL/webhook-trigger/b8216b06-e56d-49fd-9065-25580de07da8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       }).catch(() => ({ ok: true }));
 
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -113,6 +204,16 @@ const App: React.FC = () => {
       console.error("Submission error", error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const getProgressWidth = () => {
+    if (isSuccess) return "100%";
+    switch(formStep) {
+      case 1: return "33%";
+      case 2: return "66%";
+      case 3: return "95%";
+      default: return "33%";
     }
   };
 
@@ -255,8 +356,8 @@ const App: React.FC = () => {
              alt="Agrarlandschaft mit Photovoltaik" 
              className="w-full h-full object-cover scale-105"
            />
-           <div className="absolute inset-0 bg-black/60"></div>
-           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
+           {/* Dark Green Gradient Overlay */}
+           <div className="absolute inset-0 bg-gradient-to-b from-[#1a3c30]/60 to-[#1a3c30]/90"></div>
         </div>
 
         <div className="relative z-10 max-w-screen-xl mx-auto pt-20">
@@ -308,8 +409,8 @@ const App: React.FC = () => {
               <span>100% Kostenfrei für Verpächter</span>
             </div>
             <div className="flex items-center gap-3 bg-white/5 py-2 px-4 rounded-lg backdrop-blur-sm border border-white/10">
-              <Landmark size={20} className="text-brand-accent" /> 
-              <span>Deutsches Unternehmen (Frankfurt)</span>
+              <FileText size={20} className="text-brand-accent" /> 
+              <span>Deutsches Vertragswerk</span>
             </div>
           </motion.div>
         </div>
@@ -327,7 +428,8 @@ const App: React.FC = () => {
             </motion.p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-4 items-start">
+          {/* Reduced to 3 columns, centering contents */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 lg:gap-8 items-start justify-items-center">
             {[
               { 
                 icon: <Building2 className="w-8 h-8 md:w-10 md:h-10 text-brand-accent" />, 
@@ -337,15 +439,9 @@ const App: React.FC = () => {
               },
               { 
                 icon: <Euro className="w-8 h-8 md:w-10 md:h-10 text-brand-accent" />, 
-                val: "10 Mio. €", 
-                sub: "Monatliches Ankaufvolumen",
+                val: "Bis zu 10 Mio. €", 
+                sub: "Verfügbares Investitionskapital (mtl.)",
                 desc: "Höchste Liquidität für Ihre Auszahlung."
-              },
-              { 
-                icon: <Landmark className="w-8 h-8 md:w-10 md:h-10 text-brand-accent" />, 
-                val: "2 Mrd. €", 
-                sub: "Bereits investiertes Kapital",
-                desc: "Langjährige Expertise im Energiemarkt."
               },
               { 
                 icon: <Clock className="w-8 h-8 md:w-10 md:h-10 text-brand-accent" />, 
@@ -360,12 +456,12 @@ const App: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col items-center text-center px-4"
+                className="flex flex-col items-center text-center px-4 max-w-sm"
               >
                 <div className="mb-6 p-4 bg-white rounded-2xl shadow-sm border border-gray-50">
                   {item.icon}
                 </div>
-                <h3 className="font-sans text-3xl md:text-4xl lg:text-[40px] text-brand-green font-black mb-2 tracking-tight">
+                <h3 className="font-sans text-3xl md:text-4xl text-brand-green font-black mb-2 tracking-tight">
                   {item.val}
                 </h3>
                 <p className="text-brand-green font-bold text-sm md:text-base mb-2">
@@ -568,6 +664,8 @@ const App: React.FC = () => {
                   "Keine Reaktion auf Chancen möglich",
                   "Inflation mindert den Realwert",
                   "Abhängigkeit vom Betreiber",
+                  "Volles Markt- & Insolvenzrisiko nach Ende der EEG-Förderung",
+                  "Laufender Verwaltungsaufwand & Abstimmung mit Betreiber",
                   "Begrenzte Handlungsfähigkeit"
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-4 text-gray-500 group">
@@ -601,7 +699,7 @@ const App: React.FC = () => {
                   {[
                     { text: "Sofortiges Kapital", bold: true },
                     { text: "Freie Entscheidung über Kapitaleinsatz", bold: false },
-                    { text: "Unabhängigkeit von Betreiberrisiken", bold: true },
+                    { text: "Unabhängigkeit von Betreiberrisiken", bold: false },
                     { text: "Chance auf höhere Renditen", bold: false },
                     { text: "Liquidität für Landkauf oder Expansion", bold: false },
                     { text: "Unterstützung der Familie", bold: false },
@@ -733,7 +831,7 @@ const App: React.FC = () => {
                   Wir sind keine anonyme Online-Plattform, sondern ein in Frankfurt am Main ansässiges Unternehmen, das fest in der deutschen Landwirtschaft verwurzelt ist.
                 </p>
                 <p>
-                  Wir verstehen nicht nur die Finanzwelt, sondern auch die Realität Ihres Betriebs. Unser Team aus erfahrenen Experten verwaltet ein Portfolio von über 2 Milliarden Euro – mit der Solidität einer Bank und dem Verständnis eines Landwirts.
+                  Wir verstehen nicht nur die Finanzwelt, sondern auch die Realität Ihres Betriebs. Unser Team aus erfahrenen Experten etabliert dieses in den USA bereits milliardenschwere Erfolgsmodell nun auch in Deutschland – für Ihre finanzielle Freiheit.
                 </p>
                 <ul className="space-y-4 mt-4">
                   <li className="flex items-center gap-3">
@@ -933,30 +1031,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Häufige Fragen (FAQ) - Sektion 10 */}
-      <section id="faq" className="py-20 md:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div {...fadeInUp} className="text-center mb-16 md:mb-20">
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-green font-bold leading-tight">
-              Häufige Fragen
-            </h2>
-          </motion.div>
-
-          <div className="max-w-[800px] mx-auto bg-white">
-            <div className="divide-y divide-gray-100">
-              {faqs.map((faq, idx) => (
-                <Accordion key={idx} title={faq.question}>
-                  <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-                    {faq.answer}
-                  </p>
-                </Accordion>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sektion 11: Main Conversion Area (Formular) */}
+      {/* Sektion 11: Main Conversion Area (Formular) - MOVED HERE */}
       <section id="conversion-area" className="py-24 bg-[#F5F5F4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div {...fadeInUp} className="text-center mb-12">
@@ -976,7 +1051,7 @@ const App: React.FC = () => {
               <motion.div 
                 className="h-full bg-brand-accent"
                 initial={{ width: "0%" }}
-                animate={{ width: isSuccess ? "100%" : (formStep === 1 ? "50%" : "100%") }}
+                animate={{ width: getProgressWidth() }}
                 transition={{ duration: 0.5 }}
               />
             </div>
@@ -1008,12 +1083,22 @@ const App: React.FC = () => {
                   >
                     <div className="mb-8 flex justify-center">
                        <span className="bg-brand-green/5 text-brand-green text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-brand-green/10">
-                         Schritt {formStep} von 2
+                         Schritt {formStep} von 3
                        </span>
                     </div>
 
-                    <form onSubmit={formStep === 1 ? (e) => { e.preventDefault(); setFormStep(2); } : handleSubmit} className="space-y-8">
-                      {formStep === 1 ? (
+                    <form onSubmit={(e) => {
+                        if (formStep === 1) {
+                            e.preventDefault(); 
+                            setFormStep(2); 
+                            window.scrollTo({ top: document.getElementById('conversion-area')?.offsetTop || 0, behavior: 'smooth' });
+                        } else if (formStep === 2) {
+                            handleStep2Submit(e);
+                        } else {
+                            handleFinalSubmit(e);
+                        }
+                    }} className="space-y-8">
+                      {formStep === 1 && (
                         <>
                           <div className="space-y-5">
                             <label className="text-[11px] font-black text-gray-500 uppercase tracking-[0.15em] block text-center">Haben Sie einen Solarpark auf Ihrer Fläche?</label>
@@ -1119,15 +1204,22 @@ const App: React.FC = () => {
                                     disabled={!validateStep1()}
                                     className={`w-full py-6 text-xl font-black mt-6 shadow-2xl border-none transition-all ${!validateStep1() ? 'opacity-40 cursor-not-allowed grayscale' : ''}`}
                                   >
-                                    Weiter zur Bewertung <ArrowRight size={24} className="ml-1" />
+                                    Weiter zu Schritt 2 <ArrowRight size={24} className="ml-1" />
                                   </Button>
                                 </div>
                               </motion.div>
                             )}
                           </AnimatePresence>
                         </>
-                      ) : (
+                      )}
+
+                      {formStep === 2 && (
                         <>
+                          <div className="text-center mb-8">
+                             <h3 className="font-serif text-2xl text-brand-green font-bold mb-2">Wohin dürfen wir die Analyse senden?</h3>
+                             <p className="text-gray-500 text-sm">Ihre Daten sind bei uns sicher.</p>
+                          </div>
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
                               <label className="text-[11px] font-black text-gray-500 uppercase tracking-[0.15em] block">Vorname</label>
@@ -1159,16 +1251,6 @@ const App: React.FC = () => {
                             />
                           </div>
 
-                          <div className="space-y-3">
-                            <label className="text-[11px] font-black text-gray-500 uppercase tracking-[0.15em] block">Telefonnummer</label>
-                            <input 
-                              type="tel" required placeholder="+49 123 456789"
-                              value={formData.phone}
-                              onChange={(e) => updateField('phone', e.target.value)}
-                              className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green/10 text-lg font-medium"
-                            />
-                          </div>
-
                           <div className="flex items-start gap-4 py-4 px-4 bg-stone-50 rounded-xl border border-stone-100">
                             <input 
                               type="checkbox" id="consent" required
@@ -1177,16 +1259,59 @@ const App: React.FC = () => {
                               className="mt-1 w-6 h-6 rounded border-stone-300 text-brand-green focus:ring-brand-green cursor-pointer"
                             />
                             <label htmlFor="consent" className="text-sm text-gray-600 cursor-pointer leading-tight font-medium">
-                              Ich stimme zu, dass TerraConnect meine Daten zur Bewertung verarbeitet und mich diskret kontaktieren darf.
+                              Ich stimme zu, dass TerraConnect mich per E-Mail und Telefon kontaktieren darf, um meine Bewertung zu besprechen. Widerruf jederzeit möglich.
                             </label>
                           </div>
 
                           <Button 
                             type="submit" 
-                            disabled={isSubmitting || !validateStep2()}
+                            disabled={!validateStep2()}
                             className="w-full py-6 text-xl font-black mt-6 shadow-2xl bg-brand-green text-white hover:bg-brand-greenLight border-none transition-all"
                           >
-                            {isSubmitting ? <Loader2 className="animate-spin" /> : "Jetzt Bewertung anfordern"}
+                            Weiter <ArrowRight size={24} className="ml-1" />
+                          </Button>
+                        </>
+                      )}
+
+                      {formStep === 3 && (
+                        <>
+                           <div className="flex flex-col items-center text-center mb-8">
+                               <img 
+                                 src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/6960b5ed0597df5687112287.webp" 
+                                 alt="Michael Wilder"
+                                 className="w-24 h-24 rounded-full border-4 border-white shadow-lg mb-6 object-cover"
+                               />
+                               <h3 className="font-serif text-xl md:text-2xl text-brand-green font-bold mb-4 leading-tight">
+                                 Fast geschafft!
+                               </h3>
+                               <p className="text-gray-600 text-base md:text-lg max-w-md">
+                                 Unser Experte <span className="font-bold text-brand-green">Michael Wilder</span> benötigt nur noch Ihre Rückrufnummer, um offene Fragen zur Bewertung direkt zu klären.
+                               </p>
+                           </div>
+
+                          <div className="space-y-3">
+                            <label className="text-[11px] font-black text-gray-500 uppercase tracking-[0.15em] block">Telefonnummer</label>
+                            <input 
+                              type="tel" 
+                              required 
+                              inputMode="tel"
+                              placeholder="+49 123 456789"
+                              value={formData.phone}
+                              onChange={(e) => updateField('phone', e.target.value)}
+                              className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green/10 text-lg font-medium"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center justify-center gap-2 text-xs text-gray-400 font-medium">
+                             <Lock size={12} /> Ihre Daten werden sicher verschlüsselt. 100% Kostenlos & Diskret.
+                          </div>
+
+                          <Button 
+                            type="submit" 
+                            disabled={isSubmitting || !validateStep3()}
+                            className="w-full py-6 text-xl font-black mt-6 shadow-2xl bg-brand-green text-white hover:bg-brand-greenLight border-none transition-all"
+                          >
+                            {isSubmitting ? <Loader2 className="animate-spin" /> : "Kostenlose Bewertung anfordern"}
                           </Button>
                         </>
                       )}
@@ -1196,6 +1321,29 @@ const App: React.FC = () => {
               </AnimatePresence>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Häufige Fragen (FAQ) - Sektion 10 - MOVED HERE */}
+      <section id="faq" className="py-20 md:py-32 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div {...fadeInUp} className="text-center mb-16 md:mb-20">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-green font-bold leading-tight">
+              Häufige Fragen
+            </h2>
+          </motion.div>
+
+          <div className="max-w-[800px] mx-auto bg-white">
+            <div className="divide-y divide-gray-100">
+              {faqs.map((faq, idx) => (
+                <Accordion key={idx} title={faq.question}>
+                  <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                    {faq.answer}
+                  </p>
+                </Accordion>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
