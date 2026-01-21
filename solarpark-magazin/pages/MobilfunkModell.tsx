@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { ConversionBox } from '../components/ConversionBox';
 import { getDynamicDate } from '../utils/date';
@@ -6,6 +6,21 @@ import { CheckCircle2, TrendingUp, ArrowRight, ArrowDownLeft, Building2, Coins, 
 
 export const MobilfunkModell: React.FC = () => {
   const publishDate = getDynamicDate(4);
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Zeige Footer erst an, wenn ca. über das Hero Image gescrollt wurde (450px)
+      if (window.scrollY > 450) {
+        setShowFooter(true);
+      } else {
+        setShowFooter(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToCalculator = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -363,7 +378,7 @@ export const MobilfunkModell: React.FC = () => {
       </div>
 
       {/* MOBILE STICKY FOOTER */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] flex justify-between items-center gap-4">
+      <div className={`md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] flex justify-between items-center gap-4 transition-transform duration-300 ease-in-out ${showFooter ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="font-serif text-brand-green font-bold leading-tight text-sm">
           Wie viel Kapital steckt in Ihrem Pachtvertrag?
         </div>
