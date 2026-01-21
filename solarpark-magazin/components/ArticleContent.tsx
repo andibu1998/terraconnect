@@ -9,43 +9,45 @@ export const ArticleContent: React.FC = () => {
   return (
     <article className="font-sans text-brand-dark leading-relaxed">
       {/* Header Info */}
-      <div className="mb-8 border-b border-gray-200 pb-6">
-        <span className="block text-brand-green font-bold text-sm tracking-widest uppercase mb-2">Finanzen & Agrar | Markt-Report 2026</span>
-        <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-gray-900">
-          Liquidität aus dem Boden: Warum deutsche Solarpark-Verpächter ihre Verträge jetzt zu Bargeld machen – ohne ihr Land zu verkaufen
+      <div className="mb-6 border-b border-gray-200 pb-4">
+        <span className="block text-brand-green font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Finanzen & Agrar | Markt-Report 2026</span>
+        
+        {/* Optimized Headline Size for Above the Fold visibility */}
+        <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4 text-gray-900">
+          “Liquidität aus dem Boden”: Warum deutsche Grundbesitzer ihre Solar-Pachtverträge jetzt zu Bargeld machen – ohne ihr Land zu verkaufen
         </h1>
         
-        {/* AUTHOR BYLINE */}
-        <div className="flex flex-row items-center gap-3 mb-6">
+        {/* AUTHOR BYLINE - Updated with Advertorial */}
+        <div className="flex flex-row items-center gap-3 mb-4">
           <img 
             src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/696516d0c7683beb42d8731a.webp" 
             alt="Dr. Stefan Wiegand"
-            className="w-12 h-12 rounded-full object-cover border border-gray-200 shadow-sm shrink-0"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border border-gray-200 shadow-sm shrink-0"
           />
           <div className="flex flex-col">
-            <span className="text-gray-900 font-sans text-base">
+            <span className="text-gray-900 font-sans text-sm md:text-base">
               Markt-Analyse von <strong className="font-bold">Dr. Stefan Wiegand</strong>
             </span>
-            <span className="text-sm text-gray-500 font-sans">
-              Finanz-Redaktion | Aktualisiert: {publishDate}
+            <span className="text-xs md:text-sm text-gray-500 font-sans">
+              Finanz-Redaktion | Advertorial | Aktualisiert: {publishDate}
             </span>
           </div>
         </div>
 
-        <h2 className="text-xl md:text-2xl text-gray-600 leading-relaxed font-serif">
-          Ein Finanzierungsmodell, das im Mobilfunkmarkt seit über zehn Jahren Standard ist, erreicht den Solar-Sektor: Wie Grundbesitzer durch eine intelligente Vertrags-Umstellung 20 Jahre Wartezeit überspringen und sofortige Investitionskraft gewinnen.
+        <h2 className="text-lg md:text-xl text-gray-600 leading-relaxed font-serif">
+          Ein Finanzmodell aus dem Mobilfunkmarkt erreicht den Solar-Sektor: Statt 20 Jahre auf Pachtzahlungen zu warten, wandeln Grundbesitzer ihre Verträge in sofortige Einmalzahlungen um. Das steckt dahinter:
         </h2>
       </div>
 
       {/* HERO IMAGE */}
-      <figure className="my-8 mb-10">
+      <figure className="my-6 md:my-8 mb-8">
         <img 
-          src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/696516d01af9a26f11c10c0c.webp" 
+          src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69709d0afc6c321be3015133.webp" 
           alt="Landwirt auf Solarpark" 
           className="w-full h-auto rounded-lg shadow-md"
         />
-        <figcaption className="mt-3 text-center text-sm text-gray-600 italic">
-          Kapital statt Warteschleife: Immer mehr Landwirte nutzen den Wert ihres Pachtvertrags sofort für den Betrieb, statt 20 Jahre zu warten.
+        <figcaption className="mt-3 text-left text-sm text-gray-600 italic">
+          Der Boden bleibt, das Geld fließt sofort: Solar-Verpächter erhalten Hunderttausende Euro an Kapital, ohne einen Quadratmeter Land zu verkaufen.
         </figcaption>
       </figure>
 
@@ -90,10 +92,10 @@ export const ArticleContent: React.FC = () => {
                alt="Vergleich Mobilfunkmast"
                className="w-full h-auto rounded"
              />
-             <p className="mt-2 text-xs text-gray-500 italic px-1">Bewährtes Vorbild: Was bei Mobilfunkmasten seit einem Jahrzehnt Praxis ist, nutzen nun auch Solar-Verpächter.</p>
+             <p className="mt-2 text-sm text-gray-500 italic px-1">Bewährtes Vorbild: Was bei Mobilfunkmasten seit einem Jahrzehnt Praxis ist, nutzen nun auch Solar-Verpächter.</p>
           </div>
 
-          {/* QUOTE BLOCK - MAURITS ENGELSMAN */}
+          {/* QUOTE BLOCK - MAURITS ENGELSMAN - UPDATED JOB TITLE */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-6">
             <img 
               src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/696517c798efbd84f91e96da.webp" 
@@ -101,11 +103,11 @@ export const ArticleContent: React.FC = () => {
               className="w-24 h-24 rounded-full object-cover border-2 border-brand-green/20 shadow-sm shrink-0"
             />
             <blockquote className="text-left">
-              <p className="font-serif text-lg italic text-gray-800 mb-3 leading-relaxed">
+              <p className="font-serif text-xl italic text-gray-800 mb-3 leading-relaxed">
                 "Was Grundstückseigentümer im Mobilfunkbereich seit Jahren nutzen, funktioniert bei Solarparks exakt genauso. Die Verträge sind ähnlich, die Sicherheiten sind identisch. Der Solarmarkt holt jetzt einfach nach, was woanders schon Standard ist."
               </p>
               <cite className="block text-sm font-bold text-brand-green not-italic uppercase tracking-wide">
-                — Maurits Engelsman, Mitgründer von TerraConnect
+                — Maurits Engelsman, Partner bei TerraConnect Capital
               </cite>
             </blockquote>
           </div>
@@ -123,12 +125,12 @@ export const ArticleContent: React.FC = () => {
           Das Modell basiert auf einer klassischen Win-Win-Situation durch unterschiedliche Interessenlagen.
         </p>
 
-        <ul className="list-none space-y-4 my-6">
-          <li className="flex gap-4 p-4 bg-gray-50 rounded-md border border-gray-100">
+        <ul className="list-none space-y-4 my-6 text-lg">
+          <li className="flex gap-4 p-5 bg-gray-50 rounded-md border border-gray-100">
             <div className="font-bold text-brand-green whitespace-nowrap">Sie (Der Unternehmer):</div>
             <div>Brauchen Kapital heute, um zu investieren, Schulden zu tilgen oder Risiken zu senken.</div>
           </li>
-          <li className="flex gap-4 p-4 bg-gray-50 rounded-md border border-gray-100">
+          <li className="flex gap-4 p-5 bg-gray-50 rounded-md border border-gray-100">
             <div className="font-bold text-brand-green whitespace-nowrap">Der Investor:</div>
             <div>Braucht Sicherheit über 20 Jahre, um Rentenzahlungen zu garantieren. Er sucht "langweilige", stabile Einnahmen und muss zudem ESG-Vorgaben ("Grüne Investments") erfüllen.</div>
           </li>
@@ -141,7 +143,7 @@ export const ArticleContent: React.FC = () => {
             alt="Infografik: Liquidität trifft Sicherheit"
             className="w-full h-auto rounded-lg shadow-md"
           />
-          <figcaption className="mt-2 text-center text-xs text-gray-500 italic">
+          <figcaption className="mt-2 text-center text-sm text-gray-500 italic">
             Liquidität trifft Sicherheit: Wie zwei gegensätzliche Interessen perfekt ineinandergreifen.
           </figcaption>
         </figure>
@@ -164,7 +166,7 @@ export const ArticleContent: React.FC = () => {
                     <div className="bg-green-100 p-2 rounded-full">
                         <TrendingDown className="w-6 h-6 text-brand-green" />
                     </div>
-                    <h4 className="font-bold text-lg text-gray-900 leading-tight">Zins-Arbitrage</h4>
+                    <h4 className="font-bold text-xl text-gray-900 leading-tight">Zins-Arbitrage</h4>
                 </div>
                 <p className="text-base text-gray-600">
                    Viele Betriebe bedienen noch immer Kredite mit hohen Zinsen. Wer den Pachtvertrag verkauft und damit Kredite ablöst, spart über die Jahre oft <strong className="font-semibold text-gray-900">Zehntausende Euro an Zinskosten</strong>.
@@ -177,7 +179,7 @@ export const ArticleContent: React.FC = () => {
                     <div className="bg-green-100 p-2 rounded-full">
                         <Leaf className="w-6 h-6 text-brand-green" />
                     </div>
-                    <h4 className="font-bold text-lg text-gray-900 leading-tight">Grüner Hunger</h4>
+                    <h4 className="font-bold text-xl text-gray-900 leading-tight">Grüner Hunger</h4>
                 </div>
                 <p className="text-base text-gray-600">
                     Pensionsfonds müssen in nachhaltige Assets investieren. Das Angebot ist knapp. Das bedeutet für Sie: Verkäufermarkt mit historischen Höchstbewertungen.
@@ -190,7 +192,7 @@ export const ArticleContent: React.FC = () => {
                     <div className="bg-green-100 p-2 rounded-full">
                         <Hammer className="w-6 h-6 text-brand-green" />
                     </div>
-                    <h4 className="font-bold text-lg text-gray-900 leading-tight">Opportunitätskosten</h4>
+                    <h4 className="font-bold text-xl text-gray-900 leading-tight">Opportunitätskosten</h4>
                 </div>
                 <p className="text-base text-gray-600">
                     Bodenpreise steigen oft schneller als die Pacht-Indexierung. Wer heute Liquidität hat, kann Nachbarflächen kaufen, bevor sie noch teurer werden.
@@ -203,7 +205,7 @@ export const ArticleContent: React.FC = () => {
                     <div className="bg-green-100 p-2 rounded-full">
                         <ShieldAlert className="w-6 h-6 text-brand-green" />
                     </div>
-                    <h4 className="font-bold text-lg text-gray-900 leading-tight">Politik-Risiko</h4>
+                    <h4 className="font-bold text-xl text-gray-900 leading-tight">Politik-Risiko</h4>
                 </div>
                 <p className="text-base text-gray-600">
                     Niemand garantiert, dass das EEG in 15 Jahren noch stabil ist. Ein Verkauf transferiert Inflation und Betreiber-Risiken komplett an den Käufer.
@@ -216,7 +218,7 @@ export const ArticleContent: React.FC = () => {
                     <div className="bg-green-100 p-2 rounded-full">
                         <Users className="w-6 h-6 text-brand-green" />
                     </div>
-                    <h4 className="font-bold text-lg text-gray-900 leading-tight">Generationen-Kapital</h4>
+                    <h4 className="font-bold text-xl text-gray-900 leading-tight">Generationen-Kapital</h4>
                 </div>
                 <p className="text-base text-gray-600">
                     Oft braucht die nächste Generation jetzt Startkapital – für den Hausbau oder die Firmengründung. Ein Pachtvertrag hilft in 20 Jahren, Liquidität hilft heute.
@@ -225,12 +227,12 @@ export const ArticleContent: React.FC = () => {
 
         </div>
 
-        <div className="bg-brand-green/5 p-6 rounded-lg my-10 border border-brand-green/20">
+        <div className="bg-brand-green/5 p-8 rounded-lg my-10 border border-brand-green/20">
             <h3 className="font-serif text-xl font-bold text-brand-green mb-3 flex items-center gap-2">
-                <CheckCircle2 className="w-6 h-6" /> Faktencheck: Das Land bleibt Ihr Eigentum
+                <CheckCircle2 className="w-8 h-8" /> Faktencheck: Das Land bleibt Ihr Eigentum
             </h3>
-            <p className="mb-4 text-gray-800">Die häufigste Sorge der Eigentümer ist unbegründet: "Muss ich mein Land verkaufen?" – <strong>Nein.</strong> Es handelt sich um einen reinen Forderungsverkauf.</p>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <p className="mb-4 text-gray-800 text-lg">Die häufigste Sorge der Eigentümer ist unbegründet: "Muss ich mein Land verkaufen?" – <strong>Nein.</strong> Es handelt sich um einen reinen Forderungsverkauf.</p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700 text-lg">
                 <li><strong className="font-semibold text-gray-900">Das Grundbuch bleibt bei Ihnen</strong>.</li>
                 <li>Sie können die Fläche vererben oder verkaufen (der Pachtvertrag läuft einfach weiter).</li>
                 <li>Für Eigentümer, die einen kompletten "Exit" wünschen, bietet TerraConnect optional auch den Bodenkauf an.</li>
@@ -239,7 +241,7 @@ export const ArticleContent: React.FC = () => {
 
         <h3 className="font-serif text-3xl font-bold text-gray-900 mt-16 mb-6">Wie die Bewertung funktioniert</h3>
         <p>TerraConnect nutzt keine "Daumenwerte", sondern eine mathematische Barwert-Berechnung. Diese basiert auf vier Faktoren:</p>
-        <div className="grid grid-cols-2 gap-4 my-6">
+        <div className="grid grid-cols-2 gap-4 my-6 text-lg">
             <div className="bg-gray-50 p-4 border border-gray-200 text-center font-medium">Restlaufzeit</div>
             <div className="bg-gray-50 p-4 border border-gray-200 text-center font-medium">Jahrespacht-Höhe</div>
             <div className="bg-gray-50 p-4 border border-gray-200 text-center font-medium">Bonität Betreiber</div>
@@ -250,27 +252,27 @@ export const ArticleContent: React.FC = () => {
         <h3 className="font-serif text-3xl font-bold text-gray-900 mt-16 mb-6">Der Ablauf in 4 Schritten</h3>
         <p className="mb-6">Der Prozess ist standardisiert und auf maximale Rechtssicherheit ausgelegt.</p>
         
-        {/* Process Flow HTML - Placeholder Removed */}
+        {/* Process Flow HTML */}
         <ol className="relative border-l border-brand-green/30 ml-3 space-y-6 mt-8">
             <li className="mb-10 ml-6">
                 <span className="absolute flex items-center justify-center w-8 h-8 bg-brand-green rounded-full -left-4 ring-4 ring-white text-white text-sm font-bold">1</span>
-                <h3 className="flex items-center mb-1 text-lg font-bold text-gray-900">Bewertung</h3>
-                <p className="mb-4 text-base font-normal text-gray-500">Sie geben Eckdaten ein. TerraConnect ermittelt den Marktwert. Ergebnis: <strong className="font-semibold text-gray-900">Innerhalb von 48 Stunden</strong>.</p>
+                <h3 className="flex items-center mb-1 text-xl font-bold text-gray-900">Bewertung</h3>
+                <p className="mb-4 text-lg font-normal text-gray-500">Sie geben Eckdaten ein. TerraConnect ermittelt den Marktwert. Ergebnis: <strong className="font-semibold text-gray-900">Innerhalb von 48 Stunden</strong>.</p>
             </li>
             <li className="mb-10 ml-6">
                 <span className="absolute flex items-center justify-center w-8 h-8 bg-brand-green rounded-full -left-4 ring-4 ring-white text-white text-sm font-bold">2</span>
-                <h3 className="flex items-center mb-1 text-lg font-bold text-gray-900">Angebot</h3>
-                <p className="mb-4 text-base font-normal text-gray-500">Sie erhalten ein verbindliches Kaufangebot.</p>
+                <h3 className="flex items-center mb-1 text-xl font-bold text-gray-900">Angebot</h3>
+                <p className="mb-4 text-lg font-normal text-gray-500">Sie erhalten ein verbindliches Kaufangebot.</p>
             </li>
             <li className="mb-10 ml-6">
                 <span className="absolute flex items-center justify-center w-8 h-8 bg-brand-green rounded-full -left-4 ring-4 ring-white text-white text-sm font-bold">3</span>
-                <h3 className="flex items-center mb-1 text-lg font-bold text-gray-900">Notar</h3>
-                <p className="mb-4 text-base font-normal text-gray-500">Der Vertrag wird notariell beurkundet. Alle Kosten trägt TerraConnect.</p>
+                <h3 className="flex items-center mb-1 text-xl font-bold text-gray-900">Notar</h3>
+                <p className="mb-4 text-lg font-normal text-gray-500">Der Vertrag wird notariell beurkundet. Alle Kosten trägt TerraConnect.</p>
             </li>
             <li className="ml-6">
                 <span className="absolute flex items-center justify-center w-8 h-8 bg-brand-green rounded-full -left-4 ring-4 ring-white text-white text-sm font-bold">4</span>
-                <h3 className="flex items-center mb-1 text-lg font-bold text-gray-900">Auszahlung (60-90 Tage)</h3>
-                <p className="mb-4 text-base font-normal text-gray-500">Das Kapital fließt auf Ihr Konto.</p>
+                <h3 className="flex items-center mb-1 text-xl font-bold text-gray-900">Auszahlung (60-90 Tage)</h3>
+                <p className="mb-4 text-lg font-normal text-gray-500">Das Kapital fließt auf Ihr Konto.</p>
             </li>
         </ol>
 
@@ -278,8 +280,8 @@ export const ArticleContent: React.FC = () => {
             <h3 className="font-serif text-xl font-bold mb-6">Fazit: Wer profitiert – und wer nicht?</h3>
             <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                    <h4 className="font-bold text-green-700 mb-3 border-b border-green-200 pb-2">Es lohnt sich für Sie, wenn:</h4>
-                    <ul className="space-y-2">
+                    <h4 className="font-bold text-green-700 mb-3 border-b border-green-200 pb-2 text-lg">Es lohnt sich für Sie, wenn:</h4>
+                    <ul className="space-y-2 text-lg">
                         <li className="flex items-start gap-2"><span className="text-green-600">✅</span> Sie teure Kredite ablösen können.</li>
                         <li className="flex items-start gap-2"><span className="text-green-600">✅</span> Sie Investitionschancen nutzen wollen.</li>
                         <li className="flex items-start gap-2"><span className="text-green-600">✅</span> Sie Risiken ausschließen wollen.</li>
@@ -287,8 +289,8 @@ export const ArticleContent: React.FC = () => {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-red-700 mb-3 border-b border-red-200 pb-2">Es lohnt sich eher nicht, wenn:</h4>
-                    <ul className="space-y-2">
+                    <h4 className="font-bold text-red-700 mb-3 border-b border-red-200 pb-2 text-lg">Es lohnt sich eher nicht, wenn:</h4>
+                    <ul className="space-y-2 text-lg">
                         <li className="flex items-start gap-2"><span className="text-red-500">❌</span> Sie das Geld für reinen Konsum verbrauchen.</li>
                         <li className="flex items-start gap-2"><span className="text-red-500">❌</span> Sie keine Verwendung für Kapital haben.</li>
                     </ul>
@@ -306,6 +308,14 @@ export const ArticleContent: React.FC = () => {
       <div id="rechner">
         <ConversionBox />
       </div>
+
+      {/* Bottom Disclaimer */}
+      <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+        <p className="text-xs text-gray-400">
+          Dieser Artikel dient ausschließlich der Information. Individuelle steuerliche und rechtliche Beratung wird empfohlen.
+        </p>
+      </div>
+
     </article>
   );
 };

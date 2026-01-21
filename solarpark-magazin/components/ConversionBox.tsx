@@ -17,6 +17,40 @@ interface FormData {
 const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/vZHsvAh2e7NEOzHzMRGL/webhook-trigger/b8216b06-e56d-49fd-9065-25580de07da8";
 const EXPERT_IMAGE = "https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/6960b5ed0597df5687112287.webp";
 
+// --- TRACKING HELPER START ---
+const getCookie = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  return '';
+};
+
+const getClientIp = async () => {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip;
+  } catch (error) {
+    return '';
+  }
+};
+
+const getTrackingParams = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    fbp: getCookie('_fbp') || '',
+    fbc: getCookie('_fbc') || '',
+    user_agent: navigator.userAgent,
+    page_url: window.location.href,
+    utm_source: urlParams.get('utm_source') || '',
+    utm_medium: urlParams.get('utm_medium') || '',
+    utm_campaign: urlParams.get('utm_campaign') || '',
+    utm_content: urlParams.get('utm_content') || '',
+    utm_term: urlParams.get('utm_term') || ''
+  };
+};
+// --- TRACKING HELPER END ---
+
 export const ConversionBox: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,7 +85,7 @@ export const ConversionBox: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-        mode: 'no-cors' // Often necessary for direct browser-to-webhook calls to avoid CORS errors, though it makes response opaque
+        mode: 'no-cors' // Often necessary for direct browser-to-webhook calls to avoid CORS errors
       });
     } catch (error) {
       console.error("Webhook Error", error);
@@ -65,11 +99,21 @@ export const ConversionBox: React.FC = () => {
     }
   };
 
-  const handleStep2Submit = (e: React.FormEvent) => {
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.firstName && formData.lastName && formData.email && formData.consent) {
-      // Fire & Forget Webhook
-      const payload = { ...formData, stage: 'partial_lead' };
+      // Gather Tracking Data
+      const ip = await getClientIp();
+      const tracking = getTrackingParams();
+      
+      // Fire & Forget Webhook (Partial Lead)
+      const payload = { 
+        ...formData, 
+        ...tracking,
+        client_ip: ip,
+        event_time: Math.floor(Date.now() / 1000),
+        stage: 'partial_lead' 
+      };
       sendWebhook(payload);
       
       // Move to next step immediately
@@ -83,8 +127,18 @@ export const ConversionBox: React.FC = () => {
 
     setLoading(true);
     
-    // Final Webhook
-    const payload = { ...formData }; // No stage or stage='full_lead' implied
+    // Gather Tracking Data
+    const ip = await getClientIp();
+    const tracking = getTrackingParams();
+
+    // Final Webhook (Full Lead)
+    const payload = { 
+      ...formData,
+      ...tracking,
+      client_ip: ip,
+      event_time: Math.floor(Date.now() / 1000)
+    };
+    
     await sendWebhook(payload);
 
     // Simulate short network delay for UX if webhook is too fast or opaque

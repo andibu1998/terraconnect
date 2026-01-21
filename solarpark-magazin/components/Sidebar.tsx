@@ -14,25 +14,25 @@ const popularArticles: SidebarItemWithUrl[] = [
   { 
     id: 1, 
     category: "Finanzen", 
-    title: "Bodenpreise rennen davon: Warum 'Warten' jetzt Verlust bedeutet",
+    title: "Verborgenes Vermögen: 400.000€ im Pachtvertrag",
     url: "/asset-vs-cash"
   },
   { 
     id: 2, 
     category: "Markt", 
-    title: "Vom Mobilfunk lernen: So funktioniert das Telekom-Modell",
+    title: "Liquiditätsprobleme? So funktioniert der Pachtvertrags-Ankauf",
     url: "/mobilfunk-modell"
   },
   { 
     id: 3, 
     category: "Trends", 
-    title: "Trendwende auf dem Acker: Die 5 häufigsten Verkaufs-Gründe",
+    title: "5 Gründe für den Tausch: Pacht vs. Einmalzahlung",
     url: "/trend-report"
   },
   { 
     id: 4, 
     category: "Report", 
-    title: "Liquidität aus dem Boden: Markt-Report 2026",
+    title: "Markt-Report 2026: Liquidität aus dem Boden",
     url: "/markt-report-2026" 
   },
 ];
