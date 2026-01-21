@@ -84,8 +84,7 @@ export const ConversionBox: React.FC = () => {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-        mode: 'no-cors' // Often necessary for direct browser-to-webhook calls to avoid CORS errors
+        body: JSON.stringify(data)
       });
     } catch (error) {
       console.error("Webhook Error", error);
