@@ -75,7 +75,7 @@ export const Sidebar: React.FC = () => {
           onClick={scrollToCalculator}
           className="w-full block text-center bg-brand-orange hover:bg-[#c2410c] text-white font-bold py-3 px-4 rounded shadow-sm transition-colors group"
         >
-           Zum Sofort-Check <span className="inline-block transition-transform group-hover:translate-x-1">»</span>
+           Jetzt Wert berechnen <span className="inline-block transition-transform group-hover:translate-x-1">»</span>
         </a>
       </div>
 

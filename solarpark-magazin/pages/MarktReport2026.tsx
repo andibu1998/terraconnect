@@ -59,7 +59,7 @@ export const MarktReport2026: React.FC = () => {
           onClick={scrollToCalculator}
           className="bg-brand-orange hover:bg-[#c2410c] text-white font-bold py-2 px-4 text-sm rounded whitespace-nowrap shadow-sm transition-colors"
         >
-          Zum Sofort-Check
+          Wert berechnen
         </button>
       </div>
     </div>

@@ -1,10 +1,18 @@
 import React from 'react';
 import { ConversionBox } from './ConversionBox';
-import { CheckCircle2, TrendingDown, Leaf, Hammer, ShieldAlert, Users } from 'lucide-react';
+import { CheckCircle2, TrendingDown, Leaf, Hammer, ShieldAlert, Users, Calculator } from 'lucide-react';
 import { getDynamicDate } from '../utils/date';
 
 export const ArticleContent: React.FC = () => {
   const publishDate = getDynamicDate(3);
+
+  const scrollToCalculator = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const element = document.getElementById('rechner');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <article className="font-sans text-brand-dark leading-relaxed">
@@ -47,7 +55,7 @@ export const ArticleContent: React.FC = () => {
           className="w-full h-auto rounded-lg shadow-md"
         />
         <figcaption className="mt-3 text-left text-sm text-gray-600 italic">
-          Der Boden bleibt, das Geld fließt sofort: Solar-Verpächter erhalten Hunderttausende Euro an Kapital, ohne einen Quadratmeter Land zu verkaufen.
+          Der Boden bleibt, das Geld fließt sofort: Solar-Verpächter erhalten Hunderttausend Euro an Kapital, ohne einen Quadratmeter Land zu verkaufen.
         </figcaption>
       </figure>
 
@@ -60,6 +68,31 @@ export const ArticleContent: React.FC = () => {
 
       {/* Body Text */}
       <div className="text-lg md:text-[19px] leading-[1.8] space-y-6 text-gray-800">
+
+        {/* --- MANAGEMENT SUMMARY --- */}
+        <div className="bg-[#f9f9f9] border border-gray-300 p-6 md:p-8 rounded-lg mb-10 shadow-sm font-sans">
+          <h3 className="font-bold text-brand-dark mb-4 text-lg uppercase tracking-wide border-b border-gray-300 pb-2">Das Wichtigste in Kürze</h3>
+          <ul className="space-y-3 mb-6 list-disc list-inside text-gray-800">
+            <li className="pl-2">
+              <strong className="text-brand-dark">Liquidität statt Wartezeit:</strong> Ein bewährtes Finanzmodell ermöglicht es Eigentümern jetzt, die Pacht der nächsten 20 Jahre als sofortige Einmalzahlung abzurufen.
+            </li>
+            <li className="pl-2">
+              <strong className="text-brand-dark">Strategischer Vorteil:</strong> Mit dem freigesetzten Kapital (oft sechsstellig) können Sie sofort reinvestieren, Kredite tilgen oder die Hofnachfolge regeln.
+            </li>
+             <li className="pl-2">
+              <strong className="text-brand-dark">Sicherheit:</strong> Es handelt sich um einen reinen Forderungsverkauf. Grund und Boden bleiben zu 100% in Ihrem Eigentum.
+            </li>
+          </ul>
+          <a
+            href="#rechner"
+            onClick={scrollToCalculator}
+            className="text-brand-orange font-bold hover:underline decoration-2 underline-offset-4 flex items-center gap-1 group"
+          >
+            Marktwert ermitteln: Berechnen Sie hier kostenlos das Potenzial Ihres Vertrags »
+          </a>
+        </div>
+        {/* --- END MANAGEMENT SUMMARY --- */}
+        
         <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-brand-green first-letter:float-left first-letter:mr-3 first-letter:mt-[-8px] first-letter:leading-[0.8]">
           Zehntausende landwirtschaftliche Flächen in Deutschland sind aktuell für Solarparks verpachtet. Für die Eigentümer bedeutet das: Sicherheit auf dem Papier, aber oft <strong className="font-semibold text-gray-900">Stillstand auf dem Konto</strong>. Die typische Jahrespacht liegt oft im fünfstelligen Bereich. Über 20 Jahre summiert sich das auf ein beachtliches Vermögen.
         </p>
@@ -67,6 +100,57 @@ export const ArticleContent: React.FC = () => {
         <p>
           Das Problem: Dieses Vermögen ist <strong className="font-semibold text-gray-900">'eingefroren'</strong>. Wenn heute Liquidität benötigt wird – für den Zukauf von Flächen, den Abbau teurer Kredite oder die Hofnachfolge – hilft ein Vertrag über künftige Zahlungen wenig. Sie sind reich an Substanz, aber arm an Liquidität.
         </p>
+
+        {/* --- NEW SECTION: MARKT-TICKER --- */}
+        <div className="my-10 bg-[#F5F7F9] border border-gray-200 rounded-lg p-6 md:p-8">
+          <div className="mb-6 border-b border-gray-300 pb-2">
+            <span className="block font-bold text-gray-500 uppercase tracking-widest text-xs md:text-sm">
+              MARKT-UPDATE: FINANZEN & AGRAR 2026
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Block 1: Rentenbank */}
+            <div className="flex flex-col">
+              <img 
+                src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432eb392b2525fc2394.webp" 
+                alt="Rentenbank" 
+                className="h-8 w-auto object-contain object-left mb-3"
+              />
+              <h5 className="font-bold text-brand-dark mb-2 leading-tight">Finanzierung wird teurer</h5>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Da Förderprogramme auslaufen und Kreditzinsen stabil hoch bleiben (ca. 3,8% laut Rentenbank 01/26), wird Eigenkapital zur wertvollsten Ressource.
+              </p>
+            </div>
+
+            {/* Block 2: Destatis */}
+            <div className="flex flex-col">
+                <img 
+                src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb1bd37c8d44.webp" 
+                alt="Destatis Statistisches Bundesamt" 
+                className="h-8 w-auto object-contain object-left mb-3"
+              />
+                <h5 className="font-bold text-brand-dark mb-2 leading-tight">Inflation frisst Pacht-Gewinne</h5>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Langfristige Verträge bergen ein stilles Risiko: Die Inflation. Laut Destatis haben 20.000 € heute eine deutlich höhere Kaufkraft als in 10 Jahren.
+                </p>
+            </div>
+
+            {/* Block 3: Handelsblatt */}
+            <div className="flex flex-col">
+                <img 
+                src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb63d17c8d43.webp" 
+                alt="Handelsblatt" 
+                className="h-8 w-auto object-contain object-left mb-3"
+              />
+                <h5 className="font-bold text-brand-dark mb-2 leading-tight">Run auf Infrastruktur</h5>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Große Pensionsfonds suchen Sicherheit und kaufen bestehende Pachtverträge massiv auf. Verpächter profitieren vom „Verkäufermarkt“.
+                </p>
+            </div>
+          </div>
+        </div>
+        {/* --- END SECTION --- */}
 
         <p className="font-medium text-gray-900">
           Hier setzt ein Modell an, das Investoren und Verpächter im Jahr 2026 gleichermaßen elektrisiert – und das seine Bewährungsprobe in einer anderen Branche längst bestanden hat.
@@ -151,6 +235,21 @@ export const ArticleContent: React.FC = () => {
         <p>
           TerraConnect bringt diese Welten zusammen. Der Pensionsfonds zahlt Ihnen heute eine signifikante Einmalzahlung (Barwert). Er kauft Ihnen die "Wartezeit" ab. Sie erhalten sofortige Handlungsfreiheit.
         </p>
+
+        {/* --- CONTEXT TRIGGER --- */}
+        <div 
+          onClick={scrollToCalculator}
+          className="bg-white border-2 border-brand-green/30 hover:border-brand-green p-6 rounded-lg shadow-sm text-center my-12 cursor-pointer group transition-all duration-300 transform hover:-translate-y-1"
+        >
+          <p className="text-lg md:text-xl font-medium text-gray-800 mb-2 leading-relaxed">
+            Das Kapital der Investoren steht bereit. Prüfen Sie jetzt unverbindlich, welche konkrete Summe für Ihren Vertrag abrufbar ist ↴
+          </p>
+          <div className="text-brand-orange font-bold text-lg uppercase tracking-wide flex items-center justify-center gap-2 group-hover:underline underline-offset-4 mt-2">
+            <Calculator className="w-6 h-6" />
+            <span>Jetzt kostenlos berechnen</span>
+          </div>
+        </div>
+        {/* --- END CONTEXT TRIGGER --- */}
 
         <h3 className="font-serif text-3xl font-bold text-gray-900 mt-16 mb-8">
           Die 5 Gründe, warum Eigentümer gerade jetzt handeln

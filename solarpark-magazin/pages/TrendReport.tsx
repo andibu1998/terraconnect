@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { ConversionBox } from '../components/ConversionBox';
 import { getDynamicDate } from '../utils/date';
-import { CheckCircle2, TrendingDown, ArrowRight, XCircle, AlertTriangle, Clock, Leaf, Users, ShieldCheck, HelpCircle, LineChart, Banknote } from 'lucide-react';
+import { CheckCircle2, TrendingDown, ArrowRight, XCircle, AlertTriangle, Clock, Leaf, Users, ShieldCheck, HelpCircle, LineChart, Banknote, Calculator } from 'lucide-react';
 
 export const TrendReport: React.FC = () => {
   const publishDate = getDynamicDate(5);
@@ -90,6 +90,30 @@ export const TrendReport: React.FC = () => {
             {/* Body Text - Keeping the generous spacing requested */}
             <div className="text-lg md:text-[20px] leading-[1.85] space-y-8 text-gray-800">
                 
+                {/* --- MANAGEMENT SUMMARY --- */}
+                <div className="bg-[#F5F5F0] border border-gray-300 p-6 md:p-8 rounded-lg mb-10 shadow-sm">
+                  <h3 className="font-bold text-brand-dark mb-4 text-lg uppercase tracking-wide border-b border-gray-300 pb-2">Das Wichtigste in Kürze</h3>
+                  <ul className="space-y-3 mb-6 list-disc list-inside text-gray-800">
+                    <li className="pl-2">
+                      <strong className="text-brand-dark">Sofortige Schlagkraft bei Landkauf:</strong> Wenn der Nachbar verkauft, zählt Schnelligkeit. Mit der Einmalzahlung treten Sie sofort als liquider Käufer auf – ohne Bankgespräche.
+                    </li>
+                    <li className="pl-2">
+                      <strong className="text-brand-dark">Familie & Zukunft absichern:</strong> Nutzen Sie das gebundene Kapital heute für die Hofübergabe oder den Hausbau der Kinder, statt Jahrzehnte auf Raten zu warten.
+                    </li>
+                     <li className="pl-2">
+                      <strong className="text-brand-dark">Wirtschaftliche Freiheit:</strong> Ob Kreditablösung oder Re-Investition: Sie wandeln einen starren Vertrag in freies Eigenkapital um.
+                    </li>
+                  </ul>
+                  <a 
+                    href="#rechner" 
+                    onClick={scrollToCalculator} 
+                    className="text-brand-orange font-bold hover:underline decoration-2 underline-offset-4 flex items-center gap-1 group"
+                  >
+                    Machen Sie den Test: Berechnen Sie hier kostenlos Ihren möglichen Auszahlungsbetrag »
+                  </a>
+                </div>
+                {/* --- ENDE MANAGEMENT SUMMARY --- */}
+                
                 <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-brand-green first-letter:float-left first-letter:mr-4 first-letter:mt-[-6px] first-letter:leading-[0.8]">
                   Noch vor drei Jahren war das Modell in der Solarbranche nahezu unbekannt: Den Pachtvertrag verkaufen, das Land behalten. Heute verzeichnen Investitionsfirmen wie TerraConnect einen Anstieg der Anfragen um über 200 Prozent.
                 </p>
@@ -97,6 +121,57 @@ export const TrendReport: React.FC = () => {
                 <p>
                   "Was im Mobilfunkmarkt seit zehn Jahren Standard ist, setzt sich jetzt auch bei Solarparks durch", bestätigt Maurits Engelsman, Partner bei TerraConnect Capital.
                 </p>
+
+                {/* --- NEW SECTION: MARKT-TICKER --- */}
+                <div className="my-10 bg-[#F5F7F9] border border-gray-200 rounded-lg p-6 md:p-8">
+                  <div className="mb-6 border-b border-gray-300 pb-2">
+                    <span className="block font-bold text-gray-500 uppercase tracking-widest text-xs md:text-sm">
+                      MARKT-UPDATE: FINANZEN & AGRAR 2026
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Block 1: Rentenbank */}
+                    <div className="flex flex-col">
+                      <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432eb392b2525fc2394.webp" 
+                        alt="Rentenbank" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                      <h5 className="font-bold text-brand-dark mb-2 leading-tight">Finanzierung wird teurer</h5>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Da Förderprogramme auslaufen und Kreditzinsen stabil hoch bleiben (ca. 3,8% laut Rentenbank 01/26), wird Eigenkapital zur wertvollsten Ressource.
+                      </p>
+                    </div>
+
+                    {/* Block 2: Destatis */}
+                    <div className="flex flex-col">
+                        <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb1bd37c8d44.webp" 
+                        alt="Destatis Statistisches Bundesamt" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                        <h5 className="font-bold text-brand-dark mb-2 leading-tight">Inflation frisst Pacht-Gewinne</h5>
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          Langfristige Verträge bergen ein stilles Risiko: Die Inflation. Laut Destatis haben 20.000 € heute eine deutlich höhere Kaufkraft als in 10 Jahren.
+                        </p>
+                    </div>
+
+                    {/* Block 3: Handelsblatt */}
+                    <div className="flex flex-col">
+                        <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb63d17c8d43.webp" 
+                        alt="Handelsblatt" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                        <h5 className="font-bold text-brand-dark mb-2 leading-tight">Run auf Infrastruktur</h5>
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          Große Pensionsfonds suchen Sicherheit und kaufen bestehende Pachtverträge massiv auf. Verpächter profitieren vom „Verkäufermarkt“.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                {/* --- END SECTION --- */}
 
                 <p className="font-medium text-gray-900 border-l-4 border-brand-green pl-6 py-2 italic bg-gray-50 rounded-r-lg">
                   Doch warum geben Verpächter die vermeintliche Sicherheit jährlicher Zahlungen auf? Die Antwort liegt in fünf konkreten Vorteilen, die in bestimmten Situationen schwerer wiegen als das Festhalten am Status quo.
@@ -223,6 +298,21 @@ export const TrendReport: React.FC = () => {
                          <span className="text-base font-bold text-gray-500 mt-2 block">Relevant für: Verpächter mit Kindern vor wichtigen Lebensentscheidungen.</span>
                     </p>
                 </div>
+
+                {/* --- CONTEXT TRIGGER --- */}
+                <div 
+                  onClick={scrollToCalculator}
+                  className="bg-white border-2 border-brand-green/30 hover:border-brand-green p-6 rounded-lg shadow-sm text-center my-12 cursor-pointer group transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  <p className="text-lg md:text-xl font-medium text-gray-800 mb-2 leading-relaxed">
+                    Egal ob Landkauf, Kreditablöse oder Familie: Finden Sie jetzt heraus, wie viel Kapital in Ihrem Vertrag steckt ↴
+                  </p>
+                  <div className="text-brand-orange font-bold text-lg uppercase tracking-wide flex items-center justify-center gap-2 group-hover:underline underline-offset-4 mt-2">
+                    <Calculator className="w-6 h-6" />
+                    <span>Jetzt kostenlos berechnen</span>
+                  </div>
+                </div>
+                {/* --- ENDE CONTEXT TRIGGER --- */}
 
                 {/* --- REASON 4 --- */}
                 <div className="mt-16 mb-12 border-t border-gray-100 pt-12">
@@ -432,7 +522,7 @@ export const TrendReport: React.FC = () => {
           onClick={scrollToCalculator}
           className="bg-brand-orange hover:bg-[#c2410c] text-white font-bold py-2 px-4 text-sm rounded whitespace-nowrap shadow-sm transition-colors"
         >
-          Zum Sofort-Check
+          Wert berechnen
         </button>
       </div>
     </div>

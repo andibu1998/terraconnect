@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { ConversionBox } from '../components/ConversionBox';
 import { getDynamicDate } from '../utils/date';
-import { CheckCircle2, TrendingUp, ArrowRight, Building2, Coins, Landmark, CalendarClock, TrendingDown } from 'lucide-react';
+import { CheckCircle2, TrendingUp, ArrowRight, Building2, Coins, Landmark, CalendarClock, TrendingDown, Calculator } from 'lucide-react';
 
 export const AssetVsCash: React.FC = () => {
   const publishDate = getDynamicDate(2);
@@ -89,6 +89,28 @@ export const AssetVsCash: React.FC = () => {
 
             {/* Body Text - UPDATED: Increased spacing and font size */}
             <div className="text-lg md:text-[20px] leading-[1.85] space-y-8 text-gray-800">
+
+                {/* --- ÄNDERUNG 1: MANAGEMENT SUMMARY --- */}
+                <div className="bg-[#F5F5F0] border border-gray-300 p-6 md:p-8 rounded-lg mb-10 shadow-sm">
+                  <h3 className="font-bold text-brand-dark mb-4 text-lg uppercase tracking-wide border-b border-gray-300 pb-2">Das Wichtigste in Kürze</h3>
+                  <ul className="space-y-3 mb-6 list-disc list-inside text-gray-800">
+                    <li className="pl-2">
+                      <strong className="text-brand-dark">Verstecktes Vermögen:</strong> In den meisten laufenden Pachtverträgen stecken sechsstellige Summen, auf die Sie sofort zugreifen können.
+                    </li>
+                    <li className="pl-2">
+                      <strong className="text-brand-dark">Gesamte Pacht sofort statt häppchenweise:</strong> Statt 20 Jahre auf die jährliche Pacht zu warten, erhalten Sie die ganze Summe auf einmal – ideal für Investitionen oder Hofübergaben.
+                    </li>
+                  </ul>
+                  {/* Removed explicit text-lg class so it inherits the parent text size (which matches the bullets) */}
+                  <a 
+                    href="#rechner" 
+                    onClick={scrollToCalculator} 
+                    className="text-brand-orange font-bold hover:underline decoration-2 underline-offset-4 flex items-center gap-1 group"
+                  >
+                    Machen Sie den Test: Berechnen Sie hier kostenlos Ihren möglichen Auszahlungsbetrag »
+                  </a>
+                </div>
+                {/* --- ENDE MANAGEMENT SUMMARY --- */}
                 
                 <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-brand-green first-letter:float-left first-letter:mr-3 first-letter:mt-[-8px] first-letter:leading-[0.8]">
                   Über 50.000 landwirtschaftliche Flächen in Deutschland sind mit Solarparks verpachtet. Die Verträge laufen typischerweise 20-30 Jahre. Die jährlichen Pachtzahlungen liegen meist zwischen 3.000 € und 5.000 € pro Hektar.
@@ -98,6 +120,57 @@ export const AssetVsCash: React.FC = () => {
                   Für die meisten Verpächter ist das eine klare Rechnung: Einmal im Jahr kommt die Überweisung. Sicheres Einkommen über Jahrzehnte.
                   Aber die wenigsten kennen die zweite Zahl: die <strong className="font-semibold text-gray-900">Sofortauszahlung ihres Vertrags</strong>.
                 </p>
+
+                {/* --- NEW SECTION: MARKT-TICKER --- */}
+                <div className="my-10 bg-[#F5F7F9] border border-gray-200 rounded-lg p-6 md:p-8">
+                  <div className="mb-6 border-b border-gray-300 pb-2">
+                    <span className="block font-bold text-gray-500 uppercase tracking-widest text-xs md:text-sm">
+                      MARKT-UPDATE: FINANZEN & AGRAR 2026
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Block 1: Rentenbank */}
+                    <div className="flex flex-col">
+                      <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432eb392b2525fc2394.webp" 
+                        alt="Rentenbank" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                      <h5 className="font-bold text-brand-dark mb-2 leading-tight">Finanzierung wird teurer</h5>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Da Förderprogramme auslaufen und Kreditzinsen stabil hoch bleiben (ca. 3,8% laut Rentenbank 01/26), wird Eigenkapital zur wertvollsten Ressource. Die Ablösung von Pachtverträgen ermöglicht zinsfreie Investitionen in den eigenen Betrieb.
+                      </p>
+                    </div>
+
+                    {/* Block 2: Destatis */}
+                    <div className="flex flex-col">
+                       <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb1bd37c8d44.webp" 
+                        alt="Destatis Statistisches Bundesamt" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                       <h5 className="font-bold text-brand-dark mb-2 leading-tight">Inflation frisst Pacht-Gewinne</h5>
+                       <p className="text-sm text-gray-600 leading-relaxed">
+                         Langfristige Verträge bergen ein stilles Risiko: Die Inflation. Laut Destatis haben 20.000 € heute eine deutlich höhere Kaufkraft als in 10 Jahren. Wer seine Pacht jetzt kapitalisiert, sichert das Geld zum heutigen Wert.
+                       </p>
+                    </div>
+
+                    {/* Block 3: Handelsblatt */}
+                    <div className="flex flex-col">
+                       <img 
+                        src="https://storage.googleapis.com/msgsndr/vZHsvAh2e7NEOzHzMRGL/media/69747432a87beb63d17c8d43.webp" 
+                        alt="Handelsblatt" 
+                        className="h-8 w-auto object-contain object-left mb-3"
+                      />
+                       <h5 className="font-bold text-brand-dark mb-2 leading-tight">Run auf Infrastruktur</h5>
+                       <p className="text-sm text-gray-600 leading-relaxed">
+                         Große Pensionsfonds suchen Sicherheit und kaufen bestehende Pachtverträge massiv auf (Handelsblatt/PwC Outlook). Verpächter profitieren aktuell von einem „Verkäufermarkt“ mit historischen Höchstbewertungen.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+                {/* --- END SECTION --- */}
 
                 <h3 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mt-12 mb-6">
                   Das Standardbeispiel: 23.200 Euro Jahrespacht
@@ -144,6 +217,21 @@ export const AssetVsCash: React.FC = () => {
                        Beispielrechnung basierend auf aktuellen Marktkonditionen für 20 Jahre Restlaufzeit. Werte variieren je nach Vertrag.
                    </p>
                 </div>
+
+                {/* --- ÄNDERUNG 2: KONTEXT TRIGGER (Service Box) --- */}
+                <div 
+                  onClick={scrollToCalculator}
+                  className="bg-white border-2 border-brand-green/30 hover:border-brand-green p-6 rounded-lg shadow-sm text-center my-10 cursor-pointer group transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  <p className="text-lg md:text-xl font-medium text-gray-800 mb-3 leading-relaxed">
+                    Die Rechnung oben ist ein Beispiel. Wie hoch die Summe bei Ihrer Fläche und Laufzeit genau ist, können Sie hier kostenlos ermitteln ↴
+                  </p>
+                  <div className="text-brand-orange font-bold text-lg uppercase tracking-wide flex items-center justify-center gap-2 group-hover:underline underline-offset-4">
+                    <Calculator className="w-6 h-6" />
+                    <span>Jetzt kostenlos berechnen</span>
+                  </div>
+                </div>
+                {/* --- ENDE KONTEXT TRIGGER --- */}
 
                 <p>
                   Was die meisten nicht wissen: Dieser Vertrag hat bereits heute einen Marktwert von <strong className="font-semibold text-gray-900">400.000 bis 560.000 Euro</strong>. Nach Steuern. Als einmalige Vollauszahlung. Sofort verfügbar.
@@ -405,7 +493,7 @@ export const AssetVsCash: React.FC = () => {
           onClick={scrollToCalculator}
           className="bg-brand-orange hover:bg-[#c2410c] text-white font-bold py-2 px-4 text-sm rounded whitespace-nowrap shadow-sm transition-colors"
         >
-          Zum Sofort-Check
+          Wert berechnen
         </button>
       </div>
     </div>
