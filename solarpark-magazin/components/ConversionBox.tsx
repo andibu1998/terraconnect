@@ -173,25 +173,27 @@ export const ConversionBox: React.FC = () => {
 
   return (
     <div className="bg-white border-2 border-brand-green/20 rounded-lg shadow-xl overflow-hidden my-12 relative" id="calculator">
-      {/* Header (Constant) */}
-      <div className="bg-brand-green p-6 text-white relative overflow-hidden">
+      {/* Header (UPDATED: Centered & New Copy) */}
+      <div className="bg-brand-green p-6 text-white relative overflow-hidden text-center">
         <div className="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4">
             <Calculator size={100} />
         </div>
-        <div className="flex items-center gap-3 mb-2 relative z-10">
-          <Calculator className="w-6 h-6 text-brand-orange" />
-          <h3 className="font-serif text-2xl font-bold leading-tight">Sofort-Check: Wie viel Kapital steckt in Ihrem Pachtvertrag?</h3>
+        <div className="flex flex-col items-center gap-2 mb-2 relative z-10">
+          <div className="bg-white/10 p-2 rounded-full mb-1">
+             <Calculator className="w-8 h-8 text-brand-orange" />
+          </div>
+          <h3 className="font-serif text-2xl md:text-3xl font-bold leading-tight">Wie viel "brachliegendes Kapital" steckt in Ihrem Solar-Pachtvertrag?</h3>
         </div>
-        <p className="text-white text-lg font-medium opacity-95 relative z-10 max-w-2xl leading-relaxed mt-3">
-          Die meisten Solar-Verpächter wissen nicht, wie viel Liquidität in ihren Verträgen gebunden ist. Finden Sie es mit wenigen Klicks heraus:
+        <p className="text-white text-lg font-medium opacity-95 relative z-10 max-w-2xl mx-auto leading-relaxed mt-3">
+          Erfahren Sie in 48 Stunden die exakte Summe, die Sie heute als Einmalzahlung erhalten könnten.
         </p>
       </div>
 
-      {/* Trust Bar */}
-      <div className="bg-brand-green/5 px-6 py-3 flex flex-wrap gap-4 text-xs font-semibold text-brand-dark uppercase tracking-wide border-b border-brand-green/10">
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> Dauer: 60 Sekunden</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> Ergebnis: 48 Std</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> Risiko: Null</span>
+      {/* Trust Bar (UPDATED COPY) */}
+      <div className="bg-brand-green/5 px-6 py-3 flex flex-wrap justify-center gap-4 md:gap-8 text-xs font-semibold text-brand-dark uppercase tracking-wide border-b border-brand-green/10">
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> Nur 5 Fragen (2 Minuten)</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> Keine Verpflichtung</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-brand-orange" /> 100% diskret & DSGVO-konform</span>
       </div>
 
       {/* Steps Container */}
@@ -394,24 +396,25 @@ export const ConversionBox: React.FC = () => {
                <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-brand-orange hover:bg-[#c2410c] text-white font-bold text-lg py-4 rounded shadow-md transform transition hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-wait"
+                  className="w-full bg-brand-orange hover:bg-[#c2410c] text-white font-bold text-lg py-4 rounded shadow-md transform transition hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-wait uppercase"
                 >
                   {loading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" /> Wird verarbeitet...
                     </>
                   ) : (
-                    "Kostenlose Bewertung anfordern"
+                    "JETZT KOSTENLOS BERECHNEN →"
                   )}
                 </button>
              </div>
 
-             <p className="text-xs text-center text-gray-400 flex items-center justify-center gap-1">
-                <Lock className="w-3 h-3" /> Ihre Daten werden sicher verschlüsselt. 100% Kostenlos & Diskret.
-             </p>
-
           </form>
         )}
+      
+      {/* SECURITY FOOTER - UPDATED SIZE (text-sm instead of text-xs) */}
+      <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
+         <Lock className="w-4 h-4" /> Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.
+      </div>
 
       </div>
     </div>

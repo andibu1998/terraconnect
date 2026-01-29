@@ -6,6 +6,7 @@ import { MarktReport2026 } from './pages/MarktReport2026';
 import { AssetVsCash } from './pages/AssetVsCash';
 import { MobilfunkModell } from './pages/MobilfunkModell';
 import { TrendReport } from './pages/TrendReport';
+import { Inflationsschutz } from './pages/Inflationsschutz';
 import { Home } from './pages/Home';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/asset-vs-cash" element={<AssetVsCash />} />
             <Route path="/mobilfunk-modell" element={<MobilfunkModell />} />
             <Route path="/trend-report" element={<TrendReport />} />
+            <Route path="/inflationsschutz" element={<Inflationsschutz />} />
             
             {/* Fallback: Jede unbekannte URL leitet automatisch zur Startseite */}
             <Route path="*" element={<Navigate to="/" replace />} />

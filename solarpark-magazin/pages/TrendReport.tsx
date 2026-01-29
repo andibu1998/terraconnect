@@ -516,7 +516,7 @@ export const TrendReport: React.FC = () => {
       {/* MOBILE STICKY FOOTER */}
       <div className={`md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] flex justify-between items-center gap-4 transition-transform duration-300 ease-in-out ${showFooter ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="font-serif text-brand-green font-bold leading-tight text-sm">
-          Wie viel Kapital steckt in Ihrem Pachtvertrag?
+          Wie viel "brachliegendes" Kapital steckt in Ihrem Pachtvertrag?
         </div>
         <button 
           onClick={scrollToCalculator}
