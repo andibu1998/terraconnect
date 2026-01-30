@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Button } from './components/Button';
 import { Section } from './components/Section';
+import { LegalPage } from './components/LegalPage';
 import { getTrackingParams } from './hooks/useTracking';
 
 // --- Modal Component ---
@@ -63,11 +64,11 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 bg-black/70 backdrop-blur-sm"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-4xl bg-white md:rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col h-full md:h-auto md:max-h-[90vh]"
         onClick={e => e.stopPropagation()}
       >
         {/* Close Button - Cleanly placed top right */}
@@ -80,7 +81,7 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>
         </button>
 
         {/* Modal Header */}
-        <div className="bg-white p-6 md:p-8 pb-4 text-center border-b border-gray-50 flex-shrink-0">
+        <div className="bg-white p-4 md:p-8 pb-2 md:pb-4 text-center border-b border-gray-50 flex-shrink-0">
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-brand-green mb-2 pr-8 md:pr-0">
             Comprueba tu Elegibilidad en 30 Segundos
           </h2>
@@ -93,45 +94,45 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>
         <div className="flex-1 w-full overflow-y-auto bg-white p-0 relative">
           <iframe 
             src={iframeSrc}
-            style={{ border: 'none', width: '100%', minHeight: '400px' }} 
+            style={{ border: 'none', width: '100%' }} 
             scrolling="no" 
             id="hngeGzyd45tdxnGAeEWf" 
             title="survey"
           ></iframe>
-        </div>
 
-        {/* Trust Footer */}
-        <div className="bg-[#f9f9f9] p-6 border-t border-gray-100 flex-shrink-0">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {/* Column 1 */}
-            <div className="flex flex-col items-center text-center gap-2">
-              <ShieldCheck className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
-              <div>
-                <p className="font-bold text-brand-green text-sm">Protección Total</p>
-                <p className="text-xs text-gray-500">Tus clientes están protegidos (NCND).</p>
+          {/* Trust Footer - Moved inside scrollable area, directly below iframe */}
+          <div className="bg-[#f9f9f9] p-6 border-t border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              {/* Column 1 */}
+              <div className="flex flex-col items-center text-center gap-2">
+                <ShieldCheck className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
+                <div>
+                  <p className="font-bold text-brand-green text-sm">Protección Total</p>
+                  <p className="text-xs text-gray-500">Tus clientes están protegidos (NCND).</p>
+                </div>
+              </div>
+              {/* Column 2 */}
+              <div className="flex flex-col items-center text-center gap-2">
+                <Zap className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
+                <div>
+                  <p className="font-bold text-brand-green text-sm">Proceso Rápido</p>
+                  <p className="text-xs text-gray-500">Respuesta inmediata.</p>
+                </div>
+              </div>
+              {/* Column 3 */}
+              <div className="flex flex-col items-center text-center gap-2">
+                <Building2 className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
+                <div>
+                  <p className="font-bold text-brand-green text-sm">Capital Seguro</p>
+                  <p className="text-xs text-gray-500">Fondos institucionales.</p>
+                </div>
               </div>
             </div>
-            {/* Column 2 */}
-            <div className="flex flex-col items-center text-center gap-2">
-              <Zap className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
-              <div>
-                <p className="font-bold text-brand-green text-sm">Proceso Rápido</p>
-                <p className="text-xs text-gray-500">Respuesta inmediata.</p>
-              </div>
+            
+            <div className="flex items-center justify-center gap-1.5 text-gray-400 opacity-80">
+              <Lock className="w-3 h-3" />
+              <span className="text-[10px] uppercase tracking-wider font-semibold">Encriptación SSL Segura</span>
             </div>
-            {/* Column 3 */}
-            <div className="flex flex-col items-center text-center gap-2">
-              <Building2 className="w-8 h-8 text-brand-green" strokeWidth={1.5} />
-              <div>
-                <p className="font-bold text-brand-green text-sm">Capital Seguro</p>
-                <p className="text-xs text-gray-500">Fondos institucionales.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-center gap-1.5 text-gray-400 opacity-80">
-            <Lock className="w-3 h-3" />
-            <span className="text-[10px] uppercase tracking-wider font-semibold">Encriptación SSL Segura</span>
           </div>
         </div>
       </div>
@@ -407,7 +408,8 @@ const ComparisonTable = () => {
         </h2>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-2xl max-w-5xl mx-auto">
+      {/* Desktop View (Table) */}
+      <div className="hidden md:block overflow-hidden rounded-2xl border border-gray-200 shadow-2xl max-w-5xl mx-auto">
         <table className="w-full border-collapse bg-white text-left text-base md:text-lg text-gray-700">
           <thead className="bg-brand-green text-white">
             <tr>
@@ -426,7 +428,8 @@ const ComparisonTable = () => {
               <th className="px-8 py-8 font-medium text-gray-900">El Obstáculo Principal</th>
               <td className="px-8 py-8 text-red-600 font-medium">Red Eléctrica (REE) bloqueada hasta 2029</td>
               <td className="px-8 py-8 font-medium text-brand-green bg-green-50/50 flex items-center gap-3">
-                <Check className="w-6 h-6" /> Ninguno. El parque ya está conectado
+                <Check className="w-6 h-6 flex-shrink-0" /> 
+                <span>Ninguno. El parque ya está conectado</span>
               </td>
             </tr>
             <tr className="hover:bg-gray-50">
@@ -441,6 +444,76 @@ const ComparisonTable = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile View (Cards) */}
+      <div className="md:hidden space-y-6">
+        {/* Card 1 */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+           <div className="bg-brand-green p-4 text-center">
+             <h3 className="text-white font-bold text-lg">Tu Actividad</h3>
+           </div>
+           <div className="p-6 border-b border-gray-100">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Desarrollo Greenfield</p>
+              <p className="text-gray-600 text-lg">Pelear por terrenos y esperar licencias</p>
+           </div>
+           <div className="p-6 bg-brand-beige">
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">TerraConnect</p>
+              <p className="text-brand-green font-bold text-lg">Monetizar relaciones que ya tienes</p>
+           </div>
+        </div>
+
+        {/* Card 2 */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+           <div className="bg-brand-green p-4 text-center">
+             <h3 className="text-white font-bold text-lg">El Obstáculo Principal</h3>
+           </div>
+           <div className="p-6 border-b border-gray-100 relative overflow-hidden">
+               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 pl-2">Desarrollo Greenfield</p>
+              <p className="text-red-600 font-medium text-lg pl-2">Red Eléctrica (REE) bloqueada hasta 2029</p>
+           </div>
+           <div className="p-6 bg-brand-beige relative overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-green"></div>
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2 pl-2">TerraConnect</p>
+              <p className="text-brand-green font-bold text-lg flex items-center gap-2 pl-2">
+                <Check className="w-5 h-5 flex-shrink-0" />
+                Ninguno. El parque ya está conectado
+              </p>
+           </div>
+        </div>
+
+        {/* Card 3 */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+           <div className="bg-brand-green p-4 text-center">
+             <h3 className="text-white font-bold text-lg">Tiempo de Cobro</h3>
+           </div>
+           <div className="p-6 border-b border-gray-100">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Desarrollo Greenfield</p>
+              <p className="text-gray-600 text-lg">Incierto, en 3 a 5 años</p>
+           </div>
+           <div className="p-6 bg-brand-beige">
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">TerraConnect</p>
+              <p className="text-brand-green font-bold text-lg">Seguro, en 8 a 12 semanas</p>
+           </div>
+        </div>
+
+        {/* Card 4 */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+           <div className="bg-brand-green p-4 text-center">
+             <h3 className="text-white font-bold text-lg">Riesgo</h3>
+           </div>
+           <div className="p-6 border-b border-gray-100 relative overflow-hidden">
+               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 pl-2">Desarrollo Greenfield</p>
+              <p className="text-red-600 font-medium text-lg pl-2">Alto (El proyecto puede morir)</p>
+           </div>
+           <div className="p-6 bg-brand-beige relative overflow-hidden">
+               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-green"></div>
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2 pl-2">TerraConnect</p>
+              <p className="text-brand-green font-bold text-lg pl-2">Cero (El activo ya existe)</p>
+           </div>
+        </div>
       </div>
     </Section>
   );
@@ -736,48 +809,6 @@ const LandingPage = ({ onOpenModal }: { onOpenModal: () => void }) => (
     <FinalCTA onOpenModal={onOpenModal} />
   </>
 );
-
-// --- Legal Page ---
-const LegalPage = () => {
-  return (
-    <div className="pt-32 pb-20">
-      <Section>
-        <div className="max-w-4xl mx-auto text-gray-700 space-y-8">
-          <div>
-            <h1 className="text-4xl font-serif font-bold text-brand-green mb-6">Aviso Legal y Política de Privacidad</h1>
-            <p className="text-lg text-gray-500">Última actualización: Enero 2026</p>
-          </div>
-
-          <div className="prose prose-lg max-w-none text-gray-600">
-            <h3 className="text-2xl font-bold text-brand-green mb-4">1. Identidad del Titular</h3>
-            <p className="mb-6">
-              TerraConnect Capital ("TerraConnect") opera como intermediario financiero especializado en activos de energía renovable. 
-              Esta web es un canal informativo y de captación de socios estratégicos.
-            </p>
-
-            <h3 className="text-2xl font-bold text-brand-green mb-4">2. Protección de Datos (GDPR)</h3>
-            <p className="mb-6">
-              En cumplimiento del Reglamento (UE) 2016/679 (RGPD), le informamos que los datos personales que nos facilite a través de los formularios 
-              serán tratados con la finalidad de gestionar su solicitud de colaboración o información. 
-              No compartimos sus datos con terceros sin su consentimiento explícito, salvo obligación legal.
-            </p>
-
-            <h3 className="text-2xl font-bold text-brand-green mb-4">3. Propiedad Intelectual</h3>
-            <p className="mb-6">
-              Todos los contenidos de este sitio web (textos, logotipos, imágenes) son propiedad de TerraConnect o de terceros que han autorizado su uso. 
-              Queda prohibida su reproducción sin autorización previa.
-            </p>
-
-            <h3 className="text-2xl font-bold text-brand-green mb-4">4. Limitación de Responsabilidad</h3>
-            <p>
-              La información contenida en esta web tiene carácter meramente informativo y no constituye asesoramiento financiero vinculante hasta la formalización de contratos específicos.
-            </p>
-          </div>
-        </div>
-      </Section>
-    </div>
-  );
-};
 
 function App() {
   // State to manage current view: 'home' or 'legal'
