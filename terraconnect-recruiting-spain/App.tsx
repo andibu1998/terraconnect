@@ -201,22 +201,22 @@ const Hero = ({ onOpenModal }: { onOpenModal: () => void }) => {
       </div>
 
       {/* Main Content */}
-      {/* Adjusted padding: pt-28 (less top padding) to visually lift content so footer is visible */}
-      <div className="container mx-auto px-6 md:px-8 max-w-[1400px] relative z-10 pt-28 pb-32 flex flex-col items-center text-center">
+      {/* Adjusted padding: pt-20 (reduced mobile top padding) to visually lift content so CTA is visible */}
+      <div className="container mx-auto px-6 md:px-8 max-w-[1400px] relative z-10 pt-20 md:pt-28 pb-20 md:pb-32 flex flex-col items-center text-center">
         {/* max-w-6xl allows wide text, but we control font size to prevent it looking squeezed */}
         <div className="w-full max-w-6xl text-white">
-          <span className="inline-block py-2 px-4 border border-brand-gold text-brand-gold rounded text-xs font-bold tracking-widest mb-6 uppercase">
+          <span className="inline-block py-2 px-4 border border-brand-gold text-brand-gold rounded text-xs font-bold tracking-widest mb-4 md:mb-6 uppercase">
             Para Originadores Solares y Buscadores de Terrenos
           </span>
           
-          {/* Headline: Balanced size. 4xl mobile, 5xl tablet, 6xl desktop. Not 8xl. */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-6">
-            Convierte tu "Agenda de Contactos" en comisiones de <span className="text-brand-gold italic">5 y 6 cifras</span> en las próximas 8 semanas.
+          {/* Headline: Balanced size. 3xl mobile (compact), 5xl tablet, 6xl desktop. */}
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4 md:mb-6">
+            Deja de esperar a Red Eléctrica: Convierte tu cartera de contactos en comisiones de <span className="text-brand-gold italic">5 cifras</span> en 8 semanas.
           </h1>
           
-          {/* Subhead: text-lg to xl. Readable but compact. */}
-          <p className="text-lg md:text-xl text-gray-100 mb-8 leading-relaxed font-light max-w-4xl mx-auto">
-            Deja de perseguir nuevos proyectos bloqueados por la Red. Compramos las Rentas Solares de tus clientes antiguos. Ellos reciben liquidez inmediata – Tú recibes tus honorarios al instante. Sin esperar a licencias.
+          {/* Subhead: text-lg to xl. Readable but compact. mb-6 on mobile */}
+          <p className="text-lg md:text-xl text-gray-100 mb-6 md:mb-8 leading-relaxed font-light max-w-4xl mx-auto">
+            Monetariza los parques solares que ya conectaste en el pasado. Tus clientes obtienen liquidez inmediata (protección anti-recortes) y tú recibes tus honorarios ante Notario. Sin riesgo de desarrollo.
           </p>
           
           <div className="flex flex-col items-center gap-4">
@@ -321,12 +321,9 @@ const Opportunity = () => {
           </div>
 
           <div className="bg-green-50 p-10 rounded-xl border-l-4 border-brand-green">
-            <h3 className="font-bold text-brand-green text-2xl mb-6">Tu oportunidad oculta: La "Mina de Oro"</h3>
+            <h3 className="font-bold text-brand-green text-2xl mb-6">Tu ventaja injusta en el mercado actual</h3>
             <p className="text-gray-700 leading-loose text-lg mb-6">
-              Revisa tu teléfono. Los propietarios a los que conectaste hace 5 o 10 años ya están cobrando. TerraConnect compra esos derechos de cobro futuros por un pago único hoy.
-            </p>
-            <p className="text-brand-green font-bold text-lg">
-              No necesitas buscar nuevos terrenos. Tú facilitas el acuerdo. Nosotros ponemos el dinero. Tú cobras.
+              Mientras otros pelean por puntos de acceso que no existen, tú tienes una mina de oro: Tus antiguos clientes. Los propietarios temen nuevos cambios retroactivos ('Recortes'). Tu oferta: Compramos su Derecho de Superficie. Ellos aseguran su dinero hoy ('Pájaro en mano'). Tú cierras la operación en semanas.
             </p>
           </div>
         </div>
@@ -426,7 +423,7 @@ const ComparisonTable = () => {
             </tr>
             <tr className="hover:bg-gray-50">
               <th className="px-8 py-8 font-medium text-gray-900">El Obstáculo Principal</th>
-              <td className="px-8 py-8 text-red-600 font-medium">Red Eléctrica (REE) bloqueada hasta 2029</td>
+              <td className="px-8 py-8 text-red-600 font-medium">Miedo a nuevos Recortes y bloqueo de REE</td>
               <td className="px-8 py-8 font-medium text-brand-green bg-green-50/50 flex items-center gap-3">
                 <Check className="w-6 h-6 flex-shrink-0" /> 
                 <span>Ninguno. El parque ya está conectado</span>
@@ -435,7 +432,7 @@ const ComparisonTable = () => {
             <tr className="hover:bg-gray-50">
               <th className="px-8 py-8 font-medium text-gray-900">Tiempo de Cobro</th>
               <td className="px-8 py-8 text-gray-600">Incierto, en 3 a 5 años</td>
-              <td className="px-8 py-8 font-medium text-brand-green bg-green-50/50">Seguro, en 8 a 12 semanas</td>
+              <td className="px-8 py-8 font-medium text-brand-green bg-green-50/50">Inmediato al cierre ante Notario (8-12 semanas)</td>
             </tr>
             <tr className="hover:bg-gray-50">
               <th className="px-8 py-8 font-medium text-gray-900">Riesgo</th>
@@ -471,7 +468,7 @@ const ComparisonTable = () => {
            <div className="p-6 border-b border-gray-100 relative overflow-hidden">
                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
               <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 pl-2">Desarrollo Greenfield</p>
-              <p className="text-red-600 font-medium text-lg pl-2">Red Eléctrica (REE) bloqueada hasta 2029</p>
+              <p className="text-red-600 font-medium text-lg pl-2">Miedo a nuevos Recortes y bloqueo de REE</p>
            </div>
            <div className="p-6 bg-brand-beige relative overflow-hidden">
               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-brand-green"></div>
@@ -494,7 +491,7 @@ const ComparisonTable = () => {
            </div>
            <div className="p-6 bg-brand-beige">
               <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">TerraConnect</p>
-              <p className="text-brand-green font-bold text-lg">Seguro, en 8 a 12 semanas</p>
+              <p className="text-brand-green font-bold text-lg">Inmediato al cierre ante Notario (8-12 semanas)</p>
            </div>
         </div>
 
@@ -607,7 +604,7 @@ const About = () => {
                  <span className="font-bold text-xl">1</span>
                </div>
                <div>
-                 <h3 className="font-bold text-2xl text-brand-green mb-3">Modelo de EE.UU. ("Rent Buying")</h3>
+                 <h3 className="font-bold text-2xl text-brand-green mb-3">Modelo de Inversión Institucional adaptado al Derecho Español (Derecho de Superficie en Escritura Pública)</h3>
                  <p className="text-gray-600 leading-loose text-lg">No es un préstamo. No es especulación. Es la compra directa de un activo financiero (el contrato de alquiler) ante Notario.</p>
                </div>
             </div>
