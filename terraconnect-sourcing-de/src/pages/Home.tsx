@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -1380,6 +1379,10 @@ export const Home: React.FC = () => {
             <nav className="flex flex-wrap justify-center gap-6 md:gap-10 text-[11px] font-black tracking-widest uppercase order-1 md:order-2">
               <a href="https://solar.terraconnectcapital.com/impressum-datenschutz" className="hover:text-brand-accent transition-colors">Impressum</a>
               <a href="https://solar.terraconnectcapital.com/impressum-datenschutz" className="hover:text-brand-accent transition-colors">Datenschutz</a>
+              {/* Separate slightly to distinguish */}
+              <span className="text-gray-700 hidden md:inline">|</span>
+              <a href="/kontakt.html" className="hover:text-brand-accent transition-colors opacity-60 hover:opacity-100">Kontakt (Static)</a>
+              <a href="/contact-uk.html" className="hover:text-brand-accent transition-colors opacity-60 hover:opacity-100">UK (Static)</a>
             </nav>
           </div>
 
@@ -1387,6 +1390,12 @@ export const Home: React.FC = () => {
             TerraConnect ist ein unabhängiger Finanzpartner. Wir weisen darauf hin, dass die auf dieser Website dargestellten Beispielrechnungen indikativ sind und eine individuelle Prüfung Ihres Pachtvertrages erfordern.
             <br /><br />
             Diese Website ist nicht Teil der Facebook-Website oder von Facebook Inc. Darüber hinaus wird diese Website in keiner Weise von Facebook unterstützt. Facebook ist eine Marke von Facebook, Inc. Wir verwenden auf dieser Website Remarketing-Pixel/Cookies von Google, um erneut mit den Besuchern unserer Website zu kommunizieren und sicherzustellen, dass wir sie in Zukunft mit relevanten Nachrichten und Informationen erreichen können. Google schaltet unsere Anzeigen auf Websites Dritter im Internet, um unsere Botschaft zu kommunizieren und die richtigen Personen zu erreichen, die in der Vergangenheit Interesse an unseren Informationen gezeigt haben.
+            
+            {/* Debug Links for certainty */}
+            <div className="mt-4 flex justify-center gap-4 opacity-50 hover:opacity-100 transition-opacity">
+                 <a href="/kontakt.html" target="_blank" className="hover:text-brand-accent border-b border-gray-700 pb-0.5">Static: Correction DE</a>
+                 <a href="/contact-uk.html" target="_blank" className="hover:text-brand-accent border-b border-gray-700 pb-0.5">Static: Correction UK</a>
+            </div>
           </div>
         </div>
       </footer>
