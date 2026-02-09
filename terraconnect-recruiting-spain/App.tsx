@@ -211,7 +211,7 @@ const Hero = ({ onOpenModal }: { onOpenModal: () => void }) => {
           
           {/* Headline: Balanced size. 3xl mobile (compact), 5xl tablet, 6xl desktop. */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4 md:mb-6">
-            Deja de esperar a Red Eléctrica: Convierte tu cartera de contactos en comisiones de <span className="text-brand-gold italic">5 cifras</span> en 8 semanas.
+            Deja de esperar a Red Eléctrica: Convierte tu cartera de contactos en <span className="text-brand-gold italic">operaciones cerradas</span> en 8-12 semanas.
           </h1>
           
           {/* Subhead: text-lg to xl. Readable but compact. mb-6 on mobile */}
@@ -564,10 +564,10 @@ const NumbersSection = ({ onOpenModal }: { onOpenModal: () => void }) => {
              </div>
              
              <div className="bg-brand-beige/50 rounded-xl p-8 text-center">
-               <p className="text-brand-green font-bold text-xl mb-2">Tu Beneficio</p>
-               <p className="text-gray-600 text-lg mb-6">Comisión pagada el día de la firma</p>
+               <p className="text-brand-green font-bold text-xl mb-2">Para el Originador</p>
+               <p className="text-gray-600 text-lg mb-6">Honorarios profesionales pagados ante Notario</p>
                <Button fullWidth className="text-lg py-4" onClick={onOpenModal}>
-                 Calcular mi comisión
+                 Ver proceso de cierre
                </Button>
              </div>
           </div>
@@ -653,7 +653,7 @@ const Testimonial = () => {
             "Tenía 3 proyectos parados por la red. Llamé a 2 clientes antiguos de 2018 y cerré operaciones por valor de €1.2M en capital para ellos."
           </h3>
           <p className="text-gray-600 italic text-xl mb-6 leading-relaxed">
-            "La comisión que generé en 2 meses superó lo que esperaba ganar en todo el año con desarrollo greenfield."
+            "Cerré 2 operaciones en 2 meses. Con desarrollo greenfield me hubiera llevado todo el año conseguir esos deals."
           </p>
           <div className="mt-6">
             <p className="font-bold text-brand-green text-lg">Carlos M.</p>
